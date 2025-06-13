@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FFXIV Asset Details</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background-color: #f4f1e9; /* Licht beige achtergrond */
+      font-family: 'Georgia', serif; /* Klassieke serif-lettertype */
+      color: #5a4631; /* Donkerbruin tekstkleur */
+    }
+    h1 {
+      color: #4a3728; /* Donkerbruin */
+      text-shadow: 1px 1px 0 #d6c7b9; /* Subtiele schaduw */
+    }
+    .asset-container {
+      border: 2px solid #d6c7b9; /* Lichtbruine rand */
+      background-color: #fffaf0; /* Lichtgeel kaartkleur */
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtiele schaduw */
+    }
+    .asset-container:hover {
+      background-color: #f4e8d4; /* Donkerder beige bij hover */
+      border-color: #c4b29e; /* Donkerder rand bij hover */
+    }
+    a {
+      color: #5a4631; /* Donkerbruin */
+    }
+    a:hover {
+      color: #8b6f4e; /* Lichtbruin bij hover */
+    }
+  </style>
+</head>
+<body>
+  <div class="container mx-auto py-8">
+    <h1 class="text-3xl font-bold text-center mb-8">Asset Details</h1>
+    <div id="details" class="flex flex-col items-center">
+      <div class="asset-container flex flex-col items-center">
+        <img id="assetImage" class="w-full max-w-md rounded-lg shadow-md cursor-pointer" src="" alt="Asset">
+        <p id="assetId" class="text-lg font-semibold text-gray-700 mt-4"></p>
+      </div>
+      <a href="index.html" class="mt-6 text-blue-500 hover:underline">Back to Home</a>
+    </div>
+  </div>
+
+  <!-- Modal for enlarged image -->
+  <div id="modal" class="hidden fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center z-50">
+    <img id="modalImage" class="max-w-full max-h-full rounded-lg" src="" alt="">
+  </div>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get('id');
+    const baseNumber = id.toString().padStart(2, '0');
+    const assetUrl = `https://v2.xivapi.com/api/asset?path=ui/loadingimage/-nowloading_base${baseNumber}_hr1.tex&format=png`;
+
+    const assetImage = document.getElementById('assetImage');
+    const assetId = document.getElementById('assetId');
+    const modal = document.getElementById('modal');
+    const modalImage = document.getElementById('modalImage');
+
+    // Set asset details
+    assetImage.src = assetUrl;
+    assetId.textContent = `Asset ID: ${id}`;
+
+    // Add click event to enlarge image
+    assetImage.addEventListener('click', () => {
+      modalImage.src = assetUrl;
+      modal.classList.remove('hidden');
+    });
+
+    // Close modal when clicking outside the image
+    modal.addEventListener('click', () => {
+      modal.classList.add('hidden');
+    });
+  </script>
+</body>
+</html>

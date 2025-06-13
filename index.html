@@ -1,88 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <link rel="stylesheet" href="./css/styles.css">
-        <title>
-            Index
-        </title>
-    </head>
-    <body>
-        <article>
-            <h2>Dozens killed as gunmen massacre tourists in Kashmir beauty spot</h2>
-            <h3>CNN Staff</h3>
-            <p>Gunmen killed at least 26 people and injured a dozen others in the disputed Himalayan region of Jammu and Kashmir on Tuesday, a rare assault on tourists in the area.</p>
-            <h3>April 22, 2025</h3>
-        </article>
-        <!-- <hr>
-        <article>
-            <h2>Trump says China tariffs will ‘come down substantially,’ hinting at potential U-turn</h2>
-            <h3>CNN Business Staff</h3>
-            <p>US President Donald Trump has signaled a major U-turn on his trade war with China, saying the high tariffs on Chinese goods will “come down substantially,” potentially easing tensions between the two countries.</p>
-            <h3>April 22, 2025</h3>
-        </article>
-        <hr>
-        <article>
-            <h2>Trump starts the clock for new tariffs to take effect</h2>
-            <h3>CNN Business Staff</h3>
-            <p>President Donald Trump said Wednesday that he could re-impose “reciprocal” tariffs on some countries in as soon as two or three weeks, a potentially significant escalation in trade tensions.</p>
-            <h3>April 23, 2025</h3>
-        </article>
-        <hr>
-        <article>
-            <h2>5 things to know for April 23: New Jersey wildfire, Himalayas attack, State Department, Economy, Fertility rate</h2>
-            <h3>CNN Staff</h3>
-            <p>CNN's 5 Things brings you the news you need to know every morning, covering major stories including a New Jersey wildfire, an attack in the Himalayas, updates from the State Department, economic developments, and changes in fertility rates.</p>
-            <h3>April 23, 2025</h3>
-        </article>
-        <hr>
-        <article>
-            <h2>April 23, 2025 - PBS News Hour full episode</h2>
-            <h3>PBS NewsHour</h3>
-            <p>Wednesday on the News Hour, President Trump lashes out at Ukrainian President Zelenskyy for criticizing a U.S. proposal to recognize Russian control of parts of Ukraine, amid ongoing tensions in Eastern Europe.</p>
-            <h3>April 23, 2025</h3>
-        </article>
-        <hr>
-        <article>
-            <h2>April 23, 2025 - PBS News Hour full episode</h2>
-            <h3>PBS NewsHour</h3>
-            <p>Wednesday on the News Hour, President Trump lashes out at Ukrainian President Zelenskyy for criticizing a U.S. proposal to recognize Russian control of parts of Ukraine, amid ongoing tensions in Eastern Europe.</p>
-            <h3>April 23, 2025</h3>
-        </article>
-        <hr>
-        <article>
-            <h2>Department releases Join FDNY Podcast for April 2025</h2>
-            <h3>FDNY Communications</h3>
-            <p>On April 23, 2025, the FDNY released the latest episode of the Join FDNY Podcast, titled "The legacy we leave behind is hard work," offering insights into the department's culture and recruitment efforts.</p>
-            <h3>April 23, 2025</h3>
-        </article>
-        <hr>
-        <article>
-            <h2>Thursday morning news: April 24, 2025</h2>
-            <h3>World News Group</h3>
-            <p>The news of the day, including the Trump administration pressing for action on the latest Ukraine peace proposal and the White House's stance on the reduction of China tariffs.</p>
-            <h3>April 24, 2025</h3>
-        </article>
-        <hr>
-        <article>
-            <h2>Hands Off protests</h2>
-            <h3>Wikipedia Contributors</h3>
-            <p>A series of demonstrations launched across the United States on April 5, 2025, in what is currently the largest one-day, nationwide display of public resistance against the second administration of President Donald Trump.</p>
-            <h3>April 5, 2025 – present</h3>
-        </article>
-        <hr>
-        <article>
-            <h2>April 2025 Mastung Bus Bombing</h2>
-            <h3>Wikipedia Contributors</h3>
-            <p>On April 15, 2025, a bus transporting personnel from the Balochistan Police was targeted by an improvised explosive device (IED) in the Mastung District of Balochistan, resulting in three deaths and twenty injuries.</p>
-            <h3>April 15, 2025</h3>
-        </article>
-        <hr>
-        <article>
-            <h2>Tornadoes of 2025</h2>
-            <h3>Wikipedia Contributors</h3>
-            <p>A summary of significant tornado events in 2025, including outbreaks in Greece, Turkey, the United States, and Spain, with detailed accounts of damages and casualties.</p>
-            <h3>April 2025</h3>
-        </article> -->
-    </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FFXIV Assets Viewer</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background-color: #f4f1e9; /* Licht beige achtergrond */
+      font-family: 'Georgia', serif; /* Klassieke serif-lettertype */
+      color: #5a4631; /* Donkerbruin tekstkleur */
+    }
+    h1 {
+      color: #4a3728; /* Donkerbruin */
+      text-shadow: 1px 1px 0 #d6c7b9; /* Subtiele schaduw */
+    }
+    .asset-item {
+      border: 2px solid #d6c7b9; /* Lichtbruine rand */
+      background-color: #fffaf0; /* Lichtgeel kaartkleur */
+    }
+    .asset-item:hover {
+      background-color: #f4e8d4; /* Donkerder beige bij hover */
+      border-color: #c4b29e; /* Donkerder rand bij hover */
+    }
+    a {
+      color: #5a4631; /* Donkerbruin */
+    }
+    a:hover {
+      color: #8b6f4e; /* Lichtbruin bij hover */
+    }
+  </style>
+</head>
+<body>
+  <div class="container mx-auto py-8">
+    <h1 class="text-4xl font-bold text-center mb-8">FFXIV Assets Viewer</h1>
+    <div id="assetGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6"></div>
+  </div>
 
+  <script>
+    const assetGrid = document.getElementById('assetGrid');
+  
+    function createAssetItem(baseNumber, id) {
+      const assetUrl = `https://v2.xivapi.com/api/asset?path=ui/loadingimage/-nowloading_base${baseNumber}_hr1.tex&format=png`;
+      const div = document.createElement('div');
+      div.className = 'asset-item shadow-md rounded-lg overflow-hidden flex flex-col items-center p-4 transition-shadow';
+  
+      div.innerHTML = `
+        <img src="${assetUrl}" alt="Asset" class="w-full rounded-lg cursor-pointer">
+        <a href="details.html?id=${id}" class="text-sm font-semibold mt-2">View Details</a>
+      `;
+
+      // Voeg een klikfunctionaliteit toe aan de afbeelding
+      div.querySelector('img').addEventListener('click', () => {
+        window.location.href = `details.html?id=${id}`;
+      });
+
+      return div;
+    }
+  
+    function loadAssets() {
+      for (let i = 1; i <= 36; i++) { // Dynamisch genereren van base01 tot base36
+        const baseNumber = i.toString().padStart(2, '0'); // Zorgt voor base01, base02, etc.
+        const assetItem = createAssetItem(baseNumber, i); // Geef het ID door
+        assetGrid.appendChild(assetItem);
+      }
+    }
+  
+    loadAssets();
+  </script>
+</body>
 </html>
