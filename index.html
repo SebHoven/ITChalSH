@@ -32,41 +32,53 @@
   </style>
 </head>
 <body>
-  <div class="container mx-auto py-8">
-    <h1 class="text-4xl font-bold text-center mb-8">FFXIV Assets Viewer</h1>
-    <div id="assetGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6"></div>
-  </div>
-
+  <header class="py-8 text-center">
+    <h1 class="text-4xl font-bold mb-8">FFXIV Assets Viewer</h1>
+  </header>
+  <main>
+    <section id="assetGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6"></section>
+  </main>
   <script>
     const assetGrid = document.getElementById('assetGrid');
-  
-    function createAssetItem(baseNumber, id) {
-      const assetUrl = `https://v2.xivapi.com/api/asset?path=ui/loadingimage/-nowloading_base${baseNumber}_hr1.tex&format=png`;
+
+    function createAssetItem(baseNumber, id, assetUrl) {
       const div = document.createElement('div');
       div.className = 'asset-item shadow-md rounded-lg overflow-hidden flex flex-col items-center p-4 transition-shadow';
-  
+
       div.innerHTML = `
         <img src="${assetUrl}" alt="Asset" class="w-full rounded-lg cursor-pointer">
         <a href="details.html?id=${id}" class="text-sm font-semibold mt-2">View Details</a>
       `;
 
-      // Voeg een klikfunctionaliteit toe aan de afbeelding
+      // Add click functionality to the image
       div.querySelector('img').addEventListener('click', () => {
         window.location.href = `details.html?id=${id}`;
       });
 
       return div;
     }
-  
+
     function loadAssets() {
-      for (let i = 1; i <= 36; i++) { // Dynamisch genereren van base01 tot base36
-        const baseNumber = i.toString().padStart(2, '0'); // Zorgt voor base01, base02, etc.
-        const assetItem = createAssetItem(baseNumber, i); // Geef het ID door
-        assetGrid.appendChild(assetItem);
+      const assetPromises = [];
+      for (let i = 1; i <= 36; i++) { // Dynamically generate base01 to base36
+        const baseNumber = i.toString().padStart(2, '0'); // Ensures base01, base02, etc.
+        const assetUrl = `https://v2.xivapi.com/api/asset?path=ui/loadingimage/-nowloading_base${baseNumber}_hr1.tex&format=png`;
+        assetPromises.push(Promise.resolve({ baseNumber, id: i, assetUrl }));
       }
+
+      Promise.all(assetPromises)
+        .then(assets => {
+          assets.forEach(asset => {
+            const assetItem = createAssetItem(asset.baseNumber, asset.id, asset.assetUrl);
+            assetGrid.appendChild(assetItem);
+          });
+        })
+        .catch(error => {
+          console.error('Error loading assets:', error);
+        });
     }
-  
+
     loadAssets();
-  </script>
+</script>
 </body>
 </html>
